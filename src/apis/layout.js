@@ -11,3 +11,6 @@ export const getNewsListAPI = () => request.get('/home/new')
 
 // 获取人气推荐列表
 export const getHotsListAPI = () => request.get('/home/hot')
+
+// 获取产品列表
+export const getProductListAPI = () => request.get('/home/goods')
