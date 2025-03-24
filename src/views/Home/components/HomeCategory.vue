@@ -1,4 +1,5 @@
 <script setup>
+import HomeBanner from './HomeBanner.vue'
 import { useCategoryStore } from '@/stores/category'
 import { ref } from 'vue'
 
@@ -47,11 +48,16 @@ const hover = (state, index = 0) => {
         </ul>
       </div>
     </div>
+    <HomeBanner
+      :height="categoryStore.categoryList.length * 55"
+      :show="!hoverState"
+    ></HomeBanner>
   </div>
 </template>
 
 <style scoped lang="scss">
 .home-category {
+  display: flex;
   position: relative;
 
   .menu {
@@ -84,91 +90,89 @@ const hover = (state, index = 0) => {
     left: 250px;
     top: 0;
     overflow: hidden;
-  }
-  .layer {
-    height: 100%;
-    background: rgba(255, 255, 255, 0.8);
-    // display: none;
-    padding: 0 15px;
-    transform: translateX(-100%);
-    transition: all 0.3s;
 
-    h4 {
-      font-size: 20px;
-      font-weight: normal;
-      line-height: 80px;
+    .layer {
+      height: 100%;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 0 15px;
+      transform: translateX(-100%);
 
-      small {
-        font-size: 16px;
-        color: #666;
-      }
-    }
+      h4 {
+        font-size: 20px;
+        font-weight: normal;
+        line-height: 80px;
 
-    ul {
-      display: flex;
-      flex-wrap: wrap;
-
-      li {
-        width: 310px;
-        height: 120px;
-        margin-right: 15px;
-        margin-bottom: 15px;
-        border: 1px solid #eee;
-        border-radius: 4px;
-        background: #fff;
-
-        &:nth-child(3n) {
-          margin-right: 0;
+        small {
+          font-size: 16px;
+          color: #666;
         }
+      }
 
-        a {
-          display: flex;
-          width: 100%;
-          height: 100%;
-          align-items: center;
-          padding: 10px;
+      ul {
+        display: flex;
+        flex-wrap: wrap;
 
-          &:hover {
-            background: #e3f9f4;
+        li {
+          width: 310px;
+          height: 120px;
+          margin-right: 15px;
+          margin-bottom: 15px;
+          border: 1px solid #eee;
+          border-radius: 4px;
+          background: #fff;
+
+          &:nth-child(3n) {
+            margin-right: 0;
           }
 
-          img {
-            width: 95px;
-            height: 95px;
-          }
+          a {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            padding: 10px;
 
-          .info {
-            padding-left: 10px;
-            line-height: 24px;
-            overflow: hidden;
-
-            .name {
-              font-size: 16px;
-              color: #666;
+            &:hover {
+              background: #e3f9f4;
             }
 
-            .desc {
-              color: #999;
+            img {
+              width: 95px;
+              height: 95px;
             }
 
-            .price {
-              font-size: 22px;
-              color: $priceColor;
+            .info {
+              padding-left: 10px;
+              line-height: 24px;
+              overflow: hidden;
 
-              i {
+              .name {
                 font-size: 16px;
+                color: #666;
+              }
+
+              .desc {
+                color: #999;
+              }
+
+              .price {
+                font-size: 22px;
+                color: $priceColor;
+
+                i {
+                  font-size: 16px;
+                }
               }
             }
           }
         }
       }
     }
-  }
-  // 弹窗显示
-  .show {
-    display: block;
-    transform: none;
-    transition: all 0.3s;
+    // 弹窗显示
+    .show {
+      transform: none;
+      transition: all 0.3s;
+    }
   }
 }
 </style>

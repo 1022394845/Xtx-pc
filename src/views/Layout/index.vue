@@ -5,10 +5,13 @@ import LayoutHeader from './components/LayoutHeader.vue'
 import LayoutFooter from './components/LayoutFooter.vue'
 import { useCategoryStore } from '@/stores/category'
 import { onMounted } from 'vue'
+import { useBannerStore } from '@/stores/banner'
 
 const categoryStore = useCategoryStore()
+const bannerStore = useBannerStore()
 onMounted(() => {
   categoryStore.getCategoryList()
+  bannerStore.getBannerList()
 })
 </script>
 <template>
