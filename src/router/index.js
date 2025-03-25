@@ -26,7 +26,13 @@ const router = createRouter({
         }
       ]
     }
-  ]
+  ],
+  // 路由视口置顶
+  scrollBehavior() {
+    return {
+      top: 0
+    }
+  }
 })
 
 export default router
