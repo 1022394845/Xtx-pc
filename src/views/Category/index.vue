@@ -1,18 +1,19 @@
 <script setup>
 import { getBannerListAPI, getCategoryDataAPI } from '@/apis/category'
-import { ref, onUpdated } from 'vue'
+import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import GoodsItem from '@/components/GoodsItem.vue'
+import { onBeforeRouteUpdate } from 'vue-router'
 
 const route = useRoute()
 const categoryData = ref({})
-const getCategoryData = async () => {
-  const { result } = await getCategoryDataAPI(route.params.id)
+const getCategoryData = async (id = route.params.id) => {
+  const { result } = await getCategoryDataAPI(id)
   categoryData.value = result
 }
 getCategoryData()
-onUpdated(() => {
-  getCategoryData()
+onBeforeRouteUpdate((to) => {
+  getCategoryData(to.params.id)
 })
 
 const bannerList = ref([])
