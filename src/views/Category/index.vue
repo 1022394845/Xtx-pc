@@ -1,5 +1,5 @@
 <script setup>
-import { getCategoryDataAPI } from '@/apis/category'
+import { getBannerListAPI, getCategoryDataAPI } from '@/apis/category'
 import { ref, onUpdated } from 'vue'
 import { useRoute } from 'vue-router'
 
@@ -13,6 +13,13 @@ getCategoryData()
 onUpdated(() => {
   getCategoryData()
 })
+
+const bannerList = ref([])
+const getBannerList = async () => {
+  const { result } = await getBannerListAPI()
+  bannerList.value = result
+}
+getBannerList()
 </script>
 
 <template>
@@ -24,6 +31,15 @@ onUpdated(() => {
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
           <el-breadcrumb-item>{{ categoryData.name }}</el-breadcrumb-item>
         </el-breadcrumb>
+      </div>
+
+      <!-- 轮播图 -->
+      <div class="home-banner" v-if="bannerList.length">
+        <el-carousel height="500px">
+          <el-carousel-item v-for="item in bannerList" :key="item.id">
+            <img :src="item.imgUrl" alt="" />
+          </el-carousel-item>
+        </el-carousel>
       </div>
     </div>
   </div>
