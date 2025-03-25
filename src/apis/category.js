@@ -17,3 +17,6 @@ export const getCategoryFilterAPI = (id) =>
   request.get('/category/sub/filter', {
     params: { id }
   })
+
+export const getSubCategoryAPI = (data) =>
+  request.post('/category/goods/temporary', data)
