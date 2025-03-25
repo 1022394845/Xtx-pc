@@ -11,3 +11,9 @@ export const getBannerListAPI = () =>
   request.get('/home/banner', {
     params: { distributionSite: 2 }
   })
+
+// 获取二级分类列表数据
+export const getCategoryFilterAPI = (id) =>
+  request.get('/category/sub/filter', {
+    params: { id }
+  })
