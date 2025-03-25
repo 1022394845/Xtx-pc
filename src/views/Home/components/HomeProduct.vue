@@ -8,7 +8,6 @@ const productList = ref([])
 const getProductList = async () => {
   const { result } = await getProductListAPI()
   productList.value = result
-  console.log(productList.value)
 }
 getProductList()
 </script>
