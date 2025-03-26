@@ -1,7 +1,7 @@
 <script setup>
 import { getProductListAPI } from '@/apis/layout'
 import HomePanel from './HomePanel.vue'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import GoodsItem from '@/components/GoodsItem.vue'
 
 const productList = ref([])
@@ -9,7 +9,9 @@ const getProductList = async () => {
   const { result } = await getProductListAPI()
   productList.value = result
 }
-getProductList()
+onMounted(() => {
+  getProductList()
+})
 </script>
 
 <template>
