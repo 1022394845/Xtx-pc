@@ -1,4 +1,18 @@
-<script setup></script>
+<script setup>
+import { getDetailAPI } from '@/apis/detail'
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+const detail = ref({})
+const getDetail = async () => {
+  const { result } = await getDetailAPI(route.params.id)
+  detail.value = result
+}
+onMounted(() => {
+  getDetail()
+})
+</script>
 
 <template>
   <div class="xtx-goods-page">
