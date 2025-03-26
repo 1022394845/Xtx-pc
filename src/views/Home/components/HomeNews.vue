@@ -16,7 +16,7 @@ getNewsList()
   <HomePanel title="新鲜好物" subTitle="新鲜出炉 品质靠谱">
     <ul class="goods-list">
       <li v-for="item in newsList" :key="item.id">
-        <RouterLink to="/">
+        <RouterLink :to="`/detail/${item.id}`">
           <el-image lazy :src="item.picture" alt="" />
           <p class="name">{{ item.name }}</p>
           <p class="price">&yen;{{ item.price }}</p>
