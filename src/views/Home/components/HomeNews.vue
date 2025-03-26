@@ -1,6 +1,6 @@
 <script setup>
 import { getNewsListAPI } from '@/apis/layout'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import HomePanel from './HomePanel.vue'
 
 const newsList = ref([])
@@ -9,7 +9,9 @@ const getNewsList = async () => {
   const { result } = await getNewsListAPI()
   newsList.value = result
 }
-getNewsList()
+onMounted(() => {
+  getNewsList()
+})
 </script>
 
 <template>
