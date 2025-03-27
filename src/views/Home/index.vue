@@ -1,5 +1,11 @@
+<script setup>
+import ImageViewer from '@/components/ImageViewer.vue'
+</script>
+
 <template>
-  <div>Home</div>
+  <div>
+    <ImageViewer></ImageViewer>
+  </div>
 </template>
 
 <style scoped>
