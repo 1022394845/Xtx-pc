@@ -3,6 +3,7 @@ import { getDetailAPI } from '@/apis/detail'
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import DetailHot from './components/DetailHot.vue'
+import { useCartStore } from '@/stores/cart'
 
 const route = useRoute()
 const detail = ref({})
@@ -15,8 +16,20 @@ onMounted(() => {
 })
 
 // sku更改
+let skuInfo = {}
 const skuChange = (sku) => {
-  console.log(sku)
+  skuInfo = sku
+}
+
+// 购物车
+const cartStore = useCartStore()
+const count = ref(1)
+const cartAdd = () => {
+  if (!skuInfo.skuId) {
+    ElMessage.error('请选择商品规格')
+  } else {
+    cartStore.cartAdd({ skuId: skuInfo.skuId, count: count.value })
+  }
 }
 </script>
 
@@ -94,10 +107,12 @@ const skuChange = (sku) => {
               <!-- sku组件 -->
               <XtxSku :goods="detail" @change="skuChange" />
               <!-- 数据组件 -->
-
+              <el-input-number v-model="count" :min="1" />
               <!-- 按钮组件 -->
               <div>
-                <el-button size="large" class="btn"> 加入购物车 </el-button>
+                <el-button size="large" class="btn" @click="cartAdd">
+                  加入购物车
+                </el-button>
               </div>
             </div>
           </div>
