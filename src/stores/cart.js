@@ -1,6 +1,6 @@
 import { cartAddAPI, cartDeleteAPI, getCartListAPI } from '@/apis/cart'
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 export const useCartStore = defineStore('cart', () => {
   const cartList = ref([])
@@ -18,11 +18,20 @@ export const useCartStore = defineStore('cart', () => {
     ElMessage.success('删除商品成功')
     getCartList()
   }
-
+  // 商品总数
+  const allCount = computed(() =>
+    cartList.value.reduce((sum, item) => sum + item.count, 0)
+  )
+  // 商品总价
+  const allPrice = computed(() =>
+    cartList.value.reduce((sum, item) => sum + item.count * item.price, 0)
+  )
   return {
     cartList,
     getCartList,
     cartAdd,
-    cartDelete
+    cartDelete,
+    allCount,
+    allPrice
   }
 })
