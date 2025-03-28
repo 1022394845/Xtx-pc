@@ -1,8 +1,9 @@
 <script setup>
-import { loginAPI } from '@/apis/user'
+import { useUserStore } from '@/stores/user'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
+const userStore = useUserStore()
 const userInfo = ref({
   account: '',
   password: '',
@@ -27,7 +28,7 @@ const form = ref()
 const router = useRouter()
 const onLogin = async () => {
   await form.value.validate()
-  await loginAPI(userInfo.value)
+  await userStore.getUserInfo(userInfo.value)
   ElMessage.success('登录成功')
   router.replace('/')
 }
