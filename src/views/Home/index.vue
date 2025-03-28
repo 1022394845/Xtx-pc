@@ -1,11 +1,15 @@
-<script setup></script>
+<script setup>
+import HomeCategory from './components/HomeCategory.vue'
+import HomeNews from './components/HomeNews.vue'
+import HomeHots from './components/HomeHots.vue'
+import HomeProduct from './components/HomeProduct.vue'
+</script>
 
 <template>
-  <div>home</div>
+  <div class="container">
+    <HomeCategory></HomeCategory>
+  </div>
+  <HomeNews></HomeNews>
+  <HomeHots></HomeHots>
+  <HomeProduct></HomeProduct>
 </template>
-
-<style scoped>
-div {
-  min-height: 100vh;
-}
-</style>
