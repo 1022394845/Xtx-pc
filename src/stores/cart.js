@@ -30,6 +30,18 @@ export const useCartStore = defineStore('cart', () => {
   const checkAll = (selected) => {
     cartList.value.forEach((item) => (item.selected = selected))
   }
+  // 选中商品列表
+  const selectedList = computed(() =>
+    cartList.value.filter((item) => item.selected)
+  )
+  // 选中商品总数
+  const selectedCount = computed(() =>
+    selectedList.value.reduce((sum, item) => sum + item.count, 0)
+  )
+  // 选中商品总价
+  const selectedPrice = computed(() =>
+    selectedList.value.reduce((sum, item) => sum + item.count * item.price, 0)
+  )
 
   return {
     cartList,
@@ -38,6 +50,8 @@ export const useCartStore = defineStore('cart', () => {
     cartDelete,
     allCount,
     allPrice,
-    checkAll
+    checkAll,
+    selectedCount,
+    selectedPrice
   }
 })
