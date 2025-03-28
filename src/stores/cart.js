@@ -26,12 +26,18 @@ export const useCartStore = defineStore('cart', () => {
   const allPrice = computed(() =>
     cartList.value.reduce((sum, item) => sum + item.count * item.price, 0)
   )
+  // 全选状态
+  const checkAll = (selected) => {
+    cartList.value.forEach((item) => (item.selected = selected))
+  }
+
   return {
     cartList,
     getCartList,
     cartAdd,
     cartDelete,
     allCount,
-    allPrice
+    allPrice,
+    checkAll
   }
 })

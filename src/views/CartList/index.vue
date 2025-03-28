@@ -1,11 +1,18 @@
 <script setup>
 import { useCartStore } from '@/stores/cart'
-import { onMounted } from 'vue'
+import { onMounted, computed } from 'vue'
 
 const cartStore = useCartStore()
 onMounted(() => {
   cartStore.getCartList()
 })
+
+const isAllChecked = computed(() =>
+  cartStore.cartList.every((item) => item.selected)
+)
+const checkAll = (selected) => {
+  cartStore.checkAll(selected)
+}
 </script>
 
 <template>
@@ -16,7 +23,8 @@ onMounted(() => {
           <thead>
             <tr>
               <th width="120">
-                <el-checkbox />
+                <!-- 全选框 -->
+                <el-checkbox v-model="isAllChecked" @change="checkAll" />
               </th>
               <th width="400">商品信息</th>
               <th width="220">单价</th>
@@ -27,9 +35,9 @@ onMounted(() => {
           </thead>
           <!-- 商品列表 -->
           <tbody>
-            <tr v-for="i in cartStore.cartList" :key="i.id">
+            <tr v-for="(i, index) in cartStore.cartList" :key="i.id">
               <td>
-                <el-checkbox />
+                <el-checkbox v-model="cartStore.cartList[index].selected" />
               </td>
               <td>
                 <div class="goods">
