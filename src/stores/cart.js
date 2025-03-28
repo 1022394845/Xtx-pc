@@ -24,7 +24,9 @@ export const useCartStore = defineStore('cart', () => {
   )
   // 商品总价
   const allPrice = computed(() =>
-    cartList.value.reduce((sum, item) => sum + item.count * item.price, 0)
+    cartList.value
+      .reduce((sum, item) => sum + item.count * item.price, 0)
+      .toFixed(2)
   )
   // 全选状态
   const checkAll = (selected) => {
@@ -40,7 +42,9 @@ export const useCartStore = defineStore('cart', () => {
   )
   // 选中商品总价
   const selectedPrice = computed(() =>
-    selectedList.value.reduce((sum, item) => sum + item.count * item.price, 0)
+    selectedList.value
+      .reduce((sum, item) => sum + item.count * item.price, 0)
+      .toFixed(2)
   )
 
   return {
