@@ -1,4 +1,5 @@
 // 配置axios实例
+import { useUserStore } from '@/stores/user'
 import axios from 'axios'
 
 const request = axios.create({
@@ -6,9 +7,14 @@ const request = axios.create({
   timeout: 5000
 })
 
+const userStore = useUserStore()
 // axios请求拦截器
 request.interceptors.request.use(
   (config) => {
+    const token = userStore.userInfo.token
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
     return config
   },
   (e) => Promise.reject(e)
