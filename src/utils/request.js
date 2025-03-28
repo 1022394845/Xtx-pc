@@ -18,6 +18,7 @@ request.interceptors.request.use(
 request.interceptors.response.use(
   (res) => res.data,
   (e) => {
+    ElMessage.error(e.response.data.message || '服务异常')
     return Promise.reject(e)
   }
 )

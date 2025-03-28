@@ -1,5 +1,7 @@
 <script setup>
+import { loginAPI } from '@/apis/user'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const userInfo = ref({
   account: '',
@@ -22,8 +24,12 @@ const rules = {
 }
 
 const form = ref()
+const router = useRouter()
 const onLogin = async () => {
   await form.value.validate()
+  await loginAPI(userInfo.value)
+  ElMessage.success('登录成功')
+  router.replace('/')
 }
 </script>
 
