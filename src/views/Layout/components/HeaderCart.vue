@@ -1,7 +1,11 @@
 <script setup>
 import { useCartStore } from '@/stores/cart'
+import { onMounted } from 'vue'
 
 const cartStore = useCartStore()
+onMounted(() => {
+  cartStore.getCartList()
+})
 </script>
 
 <template>
@@ -27,7 +31,7 @@ const cartStore = useCartStore()
           </RouterLink>
           <i
             class="iconfont icon-close-new"
-            @click="store.delCart(i.skuId)"
+            @click="cartStore.cartDelete(i.skuId)"
           ></i>
         </div>
       </div>

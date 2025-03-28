@@ -1,4 +1,4 @@
-import { cartAddAPI, getCartListAPI } from '@/apis/cart'
+import { cartAddAPI, cartDeleteAPI, getCartListAPI } from '@/apis/cart'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
@@ -13,9 +13,16 @@ export const useCartStore = defineStore('cart', () => {
     ElMessage.success('添加购物车成功')
     getCartList()
   }
+  const cartDelete = async (skuId) => {
+    await cartDeleteAPI([skuId])
+    ElMessage.success('删除商品成功')
+    getCartList()
+  }
 
   return {
     cartList,
-    cartAdd
+    getCartList,
+    cartAdd,
+    cartDelete
   }
 })
