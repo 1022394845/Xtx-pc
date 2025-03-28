@@ -21,10 +21,13 @@ const hover = (state, index = 0) => {
         :key="item"
         @mouseover="hover(true, index)"
       >
-        <RouterLink to="/">{{ item.name }}</RouterLink>
-        <RouterLink v-for="i in item.children.slice(0, 2)" :key="i.id" to="/">{{
-          i.name
-        }}</RouterLink>
+        <RouterLink :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
+        <RouterLink
+          v-for="i in item.children.slice(0, 2)"
+          :key="i.id"
+          :to="`/category/sub/${i.id}`"
+          >{{ i.name }}</RouterLink
+        >
       </li>
     </ul>
     <!-- 弹层layer位置 -->
