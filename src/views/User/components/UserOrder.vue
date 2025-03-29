@@ -20,10 +20,13 @@ const params = ref({
   page: 1,
   pageSize: 2
 })
+const loading = ref(false)
 const getOrderList = async () => {
+  loading.value = true
   const { result } = await getOrderListAPI(params.value)
   orderList.value = result.items
   total.value = result.counts
+  loading.value = false
 }
 onMounted(() => {
   getOrderList()
@@ -51,7 +54,7 @@ const pageChange = (page) => {
         :label="item.label"
       />
 
-      <div class="main-container">
+      <div class="main-container" v-loading="loading">
         <div class="holder-container" v-if="orderList.length === 0">
           <el-empty description="暂无订单数据" />
         </div>
