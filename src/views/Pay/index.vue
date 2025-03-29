@@ -1,5 +1,17 @@
 <script setup>
-const payInfo = {}
+import { getOrderAPI } from '@/apis/checkout'
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+const payInfo = ref({})
+const getOrder = async () => {
+  const { result } = await getOrderAPI(route.query.id)
+  payInfo.value = result
+}
+onMounted(() => {
+  getOrder()
+})
 </script>
 
 <template>
@@ -12,9 +24,9 @@ const payInfo = {}
           <p>订单提交成功！请尽快完成支付。</p>
           <p>支付还剩 <span>24分30秒</span>, 超时后将取消订单</p>
         </div>
-        <div class="amount">
+        <div class="amount" v-if="payInfo.payMoney">
           <span>应付总额：</span>
-          <span>¥{{ payInfo.payMoney?.toFixed(2) }}</span>
+          <span>¥{{ payInfo.payMoney.toFixed(2) }}</span>
         </div>
       </div>
       <!-- 付款方式 -->

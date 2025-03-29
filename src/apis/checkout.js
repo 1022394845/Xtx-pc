@@ -5,3 +5,6 @@ export const getCheckInfoAPI = () => request.get('/member/order/pre')
 
 // 提交订单
 export const createOrderAPI = (data) => request.post('/member/order', data)
+
+// 获取订单
+export const getOrderAPI = (id) => request.get(`/member/order/${id}`)
