@@ -4,11 +4,14 @@ import { ref, onMounted } from 'vue'
 
 const checkInfo = ref({}) // 订单对象
 const curAddress = ref({}) // 地址对象
+const activeAddress = ref({}) // 选中地址
 const getCheckInfo = async () => {
   const { result } = await getCheckInfoAPI()
   checkInfo.value = result
   const item = result.userAddresses.find((item) => item.isDefault === 0)
+  if (!item) return
   curAddress.value = item
+  activeAddress.value = item
 }
 onMounted(() => {
   getCheckInfo()
@@ -16,6 +19,22 @@ onMounted(() => {
 
 // 修改地址弹框
 const showDialog = ref(false)
+const switchAddress = (item) => {
+  activeAddress.value = item
+}
+const confirm = () => {
+  curAddress.value = activeAddress.value
+  showDialog.value = false
+}
+const cancel = () => {
+  activeAddress.value = curAddress.value
+  showDialog.value = false
+}
+
+// 新增地址
+const addAddress = () => {
+  ElMessage.warning('功能开发中')
+}
 </script>
 
 <template>
@@ -45,9 +64,7 @@ const showDialog = ref(false)
               <el-button size="large" @click="showDialog = true"
                 >切换地址</el-button
               >
-              <el-button size="large" @click="addFlag = true"
-                >添加地址</el-button
-              >
+              <el-button size="large" @click="addAddress">添加地址</el-button>
             </div>
           </div>
         </div>
@@ -135,8 +152,10 @@ const showDialog = ref(false)
     <div class="addressWrapper">
       <div
         class="text item"
+        :class="{ active: activeAddress.id === item.id }"
         v-for="item in checkInfo.userAddresses"
         :key="item.id"
+        @click="switchAddress(item)"
       >
         <ul>
           <li>
@@ -149,8 +168,8 @@ const showDialog = ref(false)
     </div>
     <template #footer>
       <span class="dialog-footer">
-        <el-button>取消</el-button>
-        <el-button type="primary">确定</el-button>
+        <el-button @click="cancel">取消</el-button>
+        <el-button type="primary" @click="confirm">确定</el-button>
       </span>
     </template>
   </el-dialog>
@@ -360,7 +379,7 @@ const showDialog = ref(false)
     &.active,
     &:hover {
       border-color: $xtxColor;
-      background: color.scale($xtxColor, $lightness: 80%);
+      background: color.scale($xtxColor, $lightness: 90%);
     }
 
     > ul {
