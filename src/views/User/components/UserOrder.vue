@@ -26,11 +26,17 @@ const getOrderList = async () => {
 onMounted(() => {
   getOrderList()
 })
+
+const tabChange = (index) => {
+  orderList.value = []
+  params.value.orderState = index
+  getOrderList()
+}
 </script>
 
 <template>
   <div class="order-container">
-    <el-tabs>
+    <el-tabs @tab-change="tabChange">
       <!-- tab切换 -->
       <el-tab-pane
         v-for="item in tabTypes"
@@ -120,9 +126,9 @@ onMounted(() => {
             </div>
           </div>
           <!-- 分页 -->
-          <div class="pagination-container">
+          <!-- <div class="pagination-container">
             <el-pagination background layout="prev, pager, next" />
-          </div>
+          </div> -->
         </div>
       </div>
     </el-tabs>
