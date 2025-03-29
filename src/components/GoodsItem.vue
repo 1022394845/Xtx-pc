@@ -7,7 +7,7 @@ defineProps({
 </script>
 
 <template>
-  <RouterLink to="/" class="goods-item">
+  <RouterLink :to="`/detail/${goods.id}`" class="goods-item">
     <el-image lazy :src="goods.picture" alt="" />
     <p class="name ellipsis">{{ goods.name }}</p>
     <p class="desc ellipsis">{{ goods.desc }}</p>
