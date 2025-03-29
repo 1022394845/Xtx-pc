@@ -14,6 +14,7 @@ const tabTypes = [
 ]
 // 订单列表
 const orderList = ref([])
+const total = ref(1)
 const params = ref({
   orderState: 0,
   page: 1,
@@ -22,6 +23,7 @@ const params = ref({
 const getOrderList = async () => {
   const { result } = await getOrderListAPI(params.value)
   orderList.value = result.items
+  total.value = result.counts
 }
 onMounted(() => {
   getOrderList()
@@ -30,6 +32,11 @@ onMounted(() => {
 const tabChange = (index) => {
   orderList.value = []
   params.value.orderState = index
+  getOrderList()
+}
+
+const pageChange = (page) => {
+  params.value.page = page
   getOrderList()
 }
 </script>
@@ -126,9 +133,15 @@ const tabChange = (index) => {
             </div>
           </div>
           <!-- 分页 -->
-          <!-- <div class="pagination-container">
-            <el-pagination background layout="prev, pager, next" />
-          </div> -->
+          <div class="pagination-container">
+            <el-pagination
+              background
+              layout="prev, pager, next"
+              :total="total"
+              :page-size="params.pageSize"
+              @current-change="pageChange"
+            />
+          </div>
         </div>
       </div>
     </el-tabs>
