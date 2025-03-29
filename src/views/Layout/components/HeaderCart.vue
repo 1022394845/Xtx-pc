@@ -11,9 +11,12 @@ onMounted(() => {
 <template>
   <div class="cart">
     <a class="curr" href="javascript:;">
-      <i class="iconfont icon-cart"></i><em>{{ cartStore.cartList.length }}</em>
+      <i class="iconfont icon-cart"></i
+      ><em v-if="cartStore.cartList.length > 0">{{
+        cartStore.cartList.length
+      }}</em>
     </a>
-    <div class="layer">
+    <div class="layer" v-if="cartStore.cartList.length > 0">
       <div class="list">
         <div class="item" v-for="i in cartStore.cartList" :key="i.id">
           <RouterLink to="">
