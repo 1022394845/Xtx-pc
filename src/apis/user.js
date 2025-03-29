@@ -9,3 +9,9 @@ export const getLikeListAPI = ({ limit = 4 }) =>
   request.get('/goods/relevant', {
     params: { limit }
   })
+
+// 获取订单列表
+export const getOrderListAPI = (params) =>
+  request.get('/member/order', {
+    params
+  })
