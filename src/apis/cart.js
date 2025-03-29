@@ -9,7 +9,6 @@ export const cartAddAPI = ({ skuId, count }) =>
 
 // 删除购物车
 export const cartDeleteAPI = (ids) => {
-  console.log(ids)
   return request.delete('/member/cart', {
     data: { ids }
   })
