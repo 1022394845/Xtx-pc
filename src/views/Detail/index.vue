@@ -1,6 +1,6 @@
 <script setup>
 import { getDetailAPI } from '@/apis/detail'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import DetailHot from './components/DetailHot.vue'
 import { useCartStore } from '@/stores/cart'
@@ -18,7 +18,10 @@ const getDetail = async () => {
 onMounted(() => {
   getDetail()
 })
-
+watch(route, () => {
+  detail.value = {}
+  getDetail()
+})
 // sku更改
 let skuInfo = {}
 const skuChange = (sku) => {

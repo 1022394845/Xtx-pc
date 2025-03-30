@@ -17,12 +17,15 @@ const titleMap = {
 const title = computed(() => titleMap[prop.type])
 
 const hotList = ref([])
+const loading = ref(false)
 const fetchHotList = async () => {
+  loading.value = true
   const { result } = await fetchHotListAPI({
     id: route.params.id,
     type: prop.type
   })
   hotList.value = result
+  loading.value = false
 }
 onMounted(() => {
   fetchHotList()
@@ -33,17 +36,19 @@ onMounted(() => {
   <div class="goods-hot">
     <h3>{{ title }}</h3>
     <!-- 商品区块 -->
-    <RouterLink
-      to="/"
-      class="goods-item"
-      v-for="item in hotList"
-      :key="item.id"
-    >
-      <img :src="item.picture" alt="" />
-      <p class="name ellipsis">{{ item.name }}</p>
-      <p class="desc ellipsis">{{ item.desc }}</p>
-      <p class="price">&yen;{{ item.price }}</p>
-    </RouterLink>
+    <div class="itemInfo" v-loading="loading">
+      <RouterLink
+        :to="`/detail/${item.id}`"
+        class="goods-item"
+        v-for="item in hotList"
+        :key="item.id"
+      >
+        <img :src="item.picture" alt="" />
+        <p class="name ellipsis">{{ item.name }}</p>
+        <p class="desc ellipsis">{{ item.desc }}</p>
+        <p class="price">&yen;{{ item.price }}</p>
+      </RouterLink>
+    </div>
   </div>
 </template>
 
@@ -59,7 +64,9 @@ onMounted(() => {
     margin-bottom: 10px;
     font-weight: normal;
   }
-
+  .itemInfo {
+    min-height: 300px;
+  }
   .goods-item {
     display: block;
     padding: 20px 30px;
