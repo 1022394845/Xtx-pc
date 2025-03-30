@@ -7,10 +7,13 @@ import { useCartStore } from '@/stores/cart'
 import { useUserStore } from '@/stores/user'
 
 const route = useRoute()
+const loading = ref(false)
 const detail = ref({})
 const getDetail = async () => {
+  loading.value = true
   const { result } = await getDetailAPI(route.params.id)
   detail.value = result
+  loading.value = false
 }
 onMounted(() => {
   getDetail()
@@ -40,24 +43,26 @@ const cartAdd = () => {
 
 <template>
   <div class="xtx-goods-page">
-    <div class="container" v-if="detail.id">
+    <div class="container">
       <div class="bread-container">
         <el-breadcrumb separator=">">
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
           <el-breadcrumb-item
             :to="{ path: `/category/${detail.categories[1].id}` }"
+            v-if="detail.id"
             >{{ detail.categories[1].name }}
           </el-breadcrumb-item>
           <el-breadcrumb-item
             :to="{ path: `/category/${detail.categories[0].id}` }"
+            v-if="detail.id"
             >{{ detail.categories[0].name }}
           </el-breadcrumb-item>
           <el-breadcrumb-item>{{ detail.name }}</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
       <!-- 商品信息 -->
-      <div class="info-container">
-        <div>
+      <div class="info-container" v-loading="loading">
+        <div v-if="detail.id">
           <div class="goods-info">
             <div class="media">
               <!-- 图片预览区 -->
@@ -166,6 +171,9 @@ const cartAdd = () => {
 
 <style scoped lang="scss">
 .xtx-goods-page {
+  .info-container {
+    min-height: 600px;
+  }
   .goods-info {
     min-height: 600px;
     background: #fff;
