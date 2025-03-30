@@ -6,10 +6,12 @@ import HomeProduct from './components/HomeProduct.vue'
 </script>
 
 <template>
-  <div class="container">
-    <HomeCategory></HomeCategory>
+  <div class="home">
+    <div class="container">
+      <HomeCategory></HomeCategory>
+    </div>
+    <HomeNews></HomeNews>
+    <HomeHots></HomeHots>
+    <HomeProduct></HomeProduct>
   </div>
-  <HomeNews></HomeNews>
-  <HomeHots></HomeHots>
-  <HomeProduct></HomeProduct>
 </template>

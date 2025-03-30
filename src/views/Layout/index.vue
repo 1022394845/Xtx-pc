@@ -23,8 +23,26 @@ onMounted(() => {
     <!-- 头部 -->
     <LayoutHeader></LayoutHeader>
     <!-- 路由主体 -->
-    <router-view></router-view>
+    <router-view v-slot="{ Component }">
+      <transition name="fade" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
     <!-- 底部 -->
     <LayoutFooter></LayoutFooter>
   </div>
 </template>
+
+<style lang="scss">
+// 路由切换过渡
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.3s ease;
+}
+.fade-enter-from {
+  opacity: 0;
+}
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
