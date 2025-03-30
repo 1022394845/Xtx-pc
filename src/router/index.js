@@ -72,10 +72,13 @@ const router = createRouter({
 })
 
 // 登录权限拦截
-router.beforeEach((to) => {
+const authURLs = ['/user', '/cartlist', '/checkout', '/pay']
+router.beforeEach((to, from, next) => {
   // 没有token拦截至登录页面
   const userStore = useUserStore()
-  if (!userStore.userInfo.token && to.path !== '/login') return '/login'
+  if (!authURLs.includes(to.path)) return next() // 无关页面直接放行
+  if (userStore.userInfo.token) return next() // 有登录权限
+  return next('/login')
 })
 
 export default router

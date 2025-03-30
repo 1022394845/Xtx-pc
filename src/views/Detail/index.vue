@@ -4,6 +4,7 @@ import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import DetailHot from './components/DetailHot.vue'
 import { useCartStore } from '@/stores/cart'
+import { useUserStore } from '@/stores/user'
 
 const route = useRoute()
 const detail = ref({})
@@ -24,7 +25,11 @@ const skuChange = (sku) => {
 // 购物车
 const cartStore = useCartStore()
 const count = ref(1)
+const userStore = useUserStore()
 const cartAdd = () => {
+  if (!userStore.userInfo.token) {
+    return ElMessage.error('请先登录账号')
+  }
   if (!skuInfo.skuId) {
     ElMessage.error('请选择商品规格')
   } else {

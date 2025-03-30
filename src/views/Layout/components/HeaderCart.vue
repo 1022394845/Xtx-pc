@@ -1,10 +1,12 @@
 <script setup>
 import { useCartStore } from '@/stores/cart'
+import { useUserStore } from '@/stores/user'
 import { onMounted } from 'vue'
 
 const cartStore = useCartStore()
+const userStore = useUserStore()
 onMounted(() => {
-  cartStore.getCartList()
+  if (userStore.userInfo.token) cartStore.getCartList()
 })
 </script>
 

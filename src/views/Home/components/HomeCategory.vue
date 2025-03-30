@@ -39,7 +39,7 @@ const hover = (state, index = 0) => {
             v-for="item in categoryStore.categoryList[hoverIndex].goods"
             :key="item.id"
           >
-            <RouterLink to="/">
+            <RouterLink :to="`/detail/${item.id}`">
               <img :src="item.picture" alt="" />
               <div class="info">
                 <p class="name ellipsis-2">{{ item.name }}</p>

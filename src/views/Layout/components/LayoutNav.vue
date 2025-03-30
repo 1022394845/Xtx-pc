@@ -37,7 +37,7 @@ const logout = () => {
             </el-popconfirm>
           </li>
           <li><a href="/user/order">我的订单</a></li>
-          <li><a href="/user/info">会员中心</a></li>
+          <li><a href="/user">会员中心</a></li>
         </template>
         <template v-else>
           <li>
